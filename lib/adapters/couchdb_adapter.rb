@@ -4,7 +4,7 @@ rescue
   puts 'You need couchrest gem to use CouchDB FlatDoc'
 end
 
-module FlatDoc
+module Flat
   
   module Adapters
     

@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/../../../spec_helper'
 
 describe Validatable::ValidatesFormatOf do
   before(:all) do
-    class ::Script < FlatDoc::Mash
+    class ::Script < Flat::Document
       validates_format_of :language, :with => /P(erl|ython)/ 
     end
     @it = ::Script.new

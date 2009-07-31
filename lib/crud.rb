@@ -1,16 +1,16 @@
-module FlatDoc
+module Flat
   
   module Crud
     
     module ClassMethods
       
       def db
-        FlatDoc.repository
+        Flat.repository
       end
     
       def get(id)
         doc = db.get(id)
-        doc && FlatDoc::Mash.new(doc)
+        doc && Flat::Document.new(doc)
       end
     
       def get!(id)
@@ -55,7 +55,7 @@ module FlatDoc
       private
     
       def db
-        FlatDoc.repository
+        Flat.repository
       end
     
       def create

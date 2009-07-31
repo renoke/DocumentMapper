@@ -2,7 +2,7 @@
 class Hash
 # Returns a new Mash initialized from this Hash.
   def to_mash
-    mash = FlatDoc::Mash.new(self)
+    mash = Flat::Document.new(self)
     mash.default = default
     mash
   end

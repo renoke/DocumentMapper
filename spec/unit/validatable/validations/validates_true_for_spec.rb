@@ -2,8 +2,8 @@ require File.dirname(__FILE__) + '/../../../spec_helper'
 
 describe Validatable::ValidatesTrueFor do
   
-  before(:each) do
-    class River < FlatDoc::Mash
+  before(:all) do
+    class River < Flat::Document
       validates_true_for :origin, :logic => lambda { origin == 'lac' }
     end
   end

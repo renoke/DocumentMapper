@@ -1,6 +1,6 @@
 
 
-module FlatDoc
+module Flat
   
     module Config
     
@@ -18,7 +18,7 @@ module FlatDoc
       end
     
       def adapter_class
-        FlatDoc::Adapters::const_get(adapter_name)
+        Flat::Adapters::const_get(adapter_name)
       end
     
       def adapter_name

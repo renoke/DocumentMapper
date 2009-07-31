@@ -3,8 +3,8 @@ require File.dirname(__FILE__) + '/../../spec_helper'
 describe "CouchdbAdapter" do
   
   before(:all) do
-    FlatDoc.setup(:adapter => 'couchdb', :database=>"http://127.0.0.1:5984/flatdoc-test")
-    @adapter = FlatDoc.repository
+    Flat.setup(:adapter => 'couchdb', :database=>"http://127.0.0.1:5984/flatdoc-test")
+    @adapter = Flat.repository
   end
   
   after(:all) do

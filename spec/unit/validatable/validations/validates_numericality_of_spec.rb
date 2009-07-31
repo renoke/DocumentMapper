@@ -3,7 +3,7 @@ require File.dirname(__FILE__) + '/../../../spec_helper'
 describe Validatable::ValidatesNumericalityOf do
   
   before(:all) do
-    class ::Water < FlatDoc::Mash
+    class ::Water < Flat::Document
       validates_numericality_of :temp
     end
     @it = ::Water.new

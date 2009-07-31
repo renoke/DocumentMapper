@@ -2,8 +2,8 @@ require File.dirname(__FILE__) + '/../../../spec_helper'
 
 describe Validatable::ValidatesAcceptanceOf do
   
-  before(:each) do
-    class ::Lac < FlatDoc::Mash
+  before(:all) do
+    class ::Lac < Flat::Document
       validates_acceptance_of :water
     end
   end
@@ -46,7 +46,7 @@ describe Validatable::ValidatesAcceptanceOf do
   end
   
   it "should validate with accept option" do
-    class ::Sea < FlatDoc::Mash
+    class ::Sea < Flat::Document
       validates_acceptance_of :water, :accept=>'salty'
     end
     it = ::Sea.new(:water=>'salty')

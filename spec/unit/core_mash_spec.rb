@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/../spec_helper'
-describe FlatDoc::Mash do
+describe Flat::Document do
   before(:each) do
-    @mash = FlatDoc::Mash.new
+    @mash = Flat::Document.new
   end
   2
   it "should return attributes" do
@@ -52,7 +52,7 @@ describe FlatDoc::Mash do
   end
   
   it "should return a Mash when passed a bang method to a non-existenct key" do
-    @mash.abc!.is_a?(FlatDoc::Mash).should be_true
+    @mash.abc!.is_a?(Flat::Document).should be_true
   end
   
   it "should return the existing value when passed a bang method for an existing key" do
@@ -61,14 +61,14 @@ describe FlatDoc::Mash do
   end
   
   it "#initializing_reader should return a Mash when passed a non-existent key" do
-    @mash.initializing_reader(:abc).is_a?(FlatDoc::Mash).should be_true
+    @mash.initializing_reader(:abc).is_a?(Flat::Document).should be_true
   end
   
   it "should allow for multi-level assignment through bang methods" do
     @mash.author!.name = "Michael Bleigh"
-    @mash.author.should == FlatDoc::Mash.new(:name => "Michael Bleigh")
+    @mash.author.should == Flat::Document.new(:name => "Michael Bleigh")
     @mash.author!.website!.url = "http://www.mbleigh.com/"
-    @mash.author.website.should == FlatDoc::Mash.new(:url => "http://www.mbleigh.com/")
+    @mash.author.website.should == Flat::Document.new(:url => "http://www.mbleigh.com/")
   end
   
   it "#deep_update should recursively mash mashes and hashes together" do
@@ -87,27 +87,27 @@ describe FlatDoc::Mash do
   
   context "#initialize" do
     it "should convert an existing hash to a Mash" do
-      converted = FlatDoc::Mash.new({:abc => 123, :name => "Bob"})
+      converted = Flat::Document.new({:abc => 123, :name => "Bob"})
       converted.abc.should == 123
       converted.name.should == "Bob"
     end
   
     it "should convert hashes recursively into mashes" do
-      converted = FlatDoc::Mash.new({:a => {:b => 1, :c => {:d => 23}}})
-      converted.a.is_a?(FlatDoc::Mash).should be_true
+      converted = Flat::Document.new({:a => {:b => 1, :c => {:d => 23}}})
+      converted.a.is_a?(Flat::Document).should be_true
       converted.a.b.should == 1
       converted.a.c.d.should == 23
     end
   
     it "should convert hashes in arrays into mashes" do
-      converted = FlatDoc::Mash.new({:a => [{:b => 12}, 23]})
+      converted = Flat::Document.new({:a => [{:b => 12}, 23]})
       converted.a.first.b.should == 12
       converted.a.last.should == 23
     end
     
     it "should convert an existing Mash into a Mash" do
-      initial = FlatDoc::Mash.new(:name => 'randy', :address => {:state => 'TX'})
-      copy = FlatDoc::Mash.new(initial)
+      initial = Flat::Document.new(:name => 'randy', :address => {:state => 'TX'})
+      copy = Flat::Document.new(initial)
       initial.name.should == copy.name      
       initial.object_id.should_not == copy.object_id
       copy.address.state.should == 'TX'
@@ -117,7 +117,7 @@ describe FlatDoc::Mash do
     end
     
     it "should accept a default block" do
-      initial = FlatDoc::Mash.new { |h,i| h[i] = []}
+      initial = Flat::Document.new { |h,i| h[i] = []}
       initial.default_proc.should_not be_nil
       initial.default.should be_nil
       initial.test.should == []
@@ -129,7 +129,7 @@ end
 describe Hash do
   it "should be convertible to a Mash" do
     mash = {:some => "hash"}.to_mash
-    mash.is_a?(FlatDoc::Mash).should be_true
+    mash.is_a?(Flat::Document).should be_true
     mash.some.should == "hash"
   end
   

@@ -7,7 +7,7 @@ end
 require File.dirname(__FILE__) + '/../utils/object_id'
 include Flat::Utils
 
-module FlatDoc
+module Flat
   
   module Adapters
     

@@ -4,7 +4,7 @@ describe Validatable::ClassMethods do
   
   before(:all) do
     
-    class Ocean < FlatDoc::Mash
+    class Ocean < Flat::Document
       validates_presence_of :water
     end
     

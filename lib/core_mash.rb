@@ -1,4 +1,4 @@
-module FlatDoc
+module Flat
   
   module CoreMash
     
@@ -42,13 +42,13 @@ module FlatDoc
     # if there isn't a value already assigned to the key requested.
     def initializing_reader(key)
      return self[key] if key?(key)
-     self[key] = Mash.new
+     self[key] = Flat::Document.new
     end
 
     alias_method :regular_dup, :dup  
     # Duplicates the current mash as a new mash.
     def dup
-     Mash.new(self)
+     Flat::Document.new(self)
     end
 
 
@@ -78,11 +78,11 @@ module FlatDoc
     # Recursively merges this mash with the passed
     # in hash, merging each hash in the hierarchy.
     def deep_update(other_hash)
-     other_hash = other_hash.to_hash if other_hash.is_a?(Mash)
+     other_hash = other_hash.to_hash if other_hash.is_a?(Flat::Document)
      other_hash = other_hash.stringify_keys
      other_hash.each_pair do |k,v|
        k = convert_key(k)
-       self[k] = self[k].to_mash if self[k].is_a?(Hash) unless self[k].is_a?(Mash)
+       self[k] = self[k].to_mash if self[k].is_a?(Hash) unless self[k].is_a?(Flat::Document)
        if self[k].is_a?(Hash) && other_hash[k].is_a?(Hash)
          self[k] = self[k].deep_merge(other_hash[k]).dup
        else
@@ -141,8 +141,8 @@ module FlatDoc
     def convert_value(value, dup=false) #:nodoc:
      case value
        when Hash
-         value = value.dup if value.is_a?(Mash) && dup
-         value.is_a?(Mash) ? value : value.to_mash
+         value = value.dup if value.is_a?(Flat::Document) && dup
+         value.is_a?(Flat::Document) ? value : value.to_mash
        when Array
          value.collect{ |e| convert_value(e) }
        else

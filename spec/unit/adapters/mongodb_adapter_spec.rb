@@ -3,8 +3,8 @@ require File.dirname(__FILE__) + '/../../spec_helper'
 describe "MongodbAdapter" do
   
   before(:all) do
-    FlatDoc.setup(:adapter => 'mongodb', :database=>"test", :collection=>'test')
-    @adapter = FlatDoc.repository
+    Flat.setup(:adapter => 'mongodb', :database=>"test", :collection=>'test')
+    @adapter = Flat.repository
   end
   
   after(:all) do

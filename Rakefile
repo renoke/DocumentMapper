@@ -1,6 +1,6 @@
 require 'rake'
 require 'spec/rake/spectask'
-require './lib/mash.rb'
+require './lib/document.rb'
 
 task :default => ['spec:all']
 

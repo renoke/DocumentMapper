@@ -13,7 +13,7 @@ describe "a FlatDoc Class for CRUD", :shared => true do
     it = Bill.first
     it.number.to_i.should >= 0
     it['type'].should == 'Bill'
-    it.should be_a(FlatDoc::Mash)
+    it.should be_a(Flat::Document)
   end
   
   
