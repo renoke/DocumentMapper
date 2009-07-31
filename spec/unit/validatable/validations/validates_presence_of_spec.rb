@@ -3,7 +3,7 @@ require File.dirname(__FILE__) + '/../../../spec_helper'
 describe Validatable::ValidatesPresenceOf do
   
   before(:all) do
-    class ::Water < Flat::Document
+    class ::Water < KeyValueMapper::Document
       validates_presence_of :temp
     end
   end

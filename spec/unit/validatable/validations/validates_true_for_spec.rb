@@ -3,7 +3,7 @@ require File.dirname(__FILE__) + '/../../../spec_helper'
 describe Validatable::ValidatesTrueFor do
   
   before(:all) do
-    class River < Flat::Document
+    class River < KeyValueMapper::Document
       validates_true_for :origin, :logic => lambda { origin == 'lac' }
     end
   end

@@ -3,15 +3,15 @@ require File.dirname(__FILE__) + '/../../../spec_helper'
 describe Validatable::ValidatesLengthOf do
   
   before(:all) do
-    class ::Montagne < Flat::Document
+    class ::Montagne < KeyValueMapper::Document
       validates_length_of :name, :maximum => 10
     end
     
-    class ::Valley < Flat::Document
+    class ::Valley < KeyValueMapper::Document
       validates_length_of :name, :minimum => 2
     end
     
-    class ::Alpes < Flat::Document
+    class ::Alpes < KeyValueMapper::Document
       validates_length_of :name, :within => (2...10)
     end
     

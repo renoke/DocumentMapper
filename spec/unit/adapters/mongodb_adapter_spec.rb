@@ -3,8 +3,8 @@ require File.dirname(__FILE__) + '/../../spec_helper'
 describe "MongodbAdapter" do
   
   before(:all) do
-    Flat.setup(:adapter => 'mongodb', :database=>"test", :collection=>'test')
-    @adapter = Flat.repository
+    KeyValueMapper.setup(:adapter => 'mongodb', :database=>"test", :collection=>'test')
+    @adapter = KeyValueMapper.repository
   end
   
   after(:all) do
@@ -12,7 +12,7 @@ describe "MongodbAdapter" do
   end
   
   describe "Write" do
-    it_should_behave_like "a FlatDoc Adapter"
+    it_should_behave_like "a KeyValueMapper Adapter"
   end
   
   describe "Read" do

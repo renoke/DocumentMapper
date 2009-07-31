@@ -1,10 +1,10 @@
 begin
   require 'couchrest'
 rescue
-  puts 'You need couchrest gem to use CouchDB FlatDoc'
+  puts 'You need couchrest gem to use CouchDB KeyValueMapper'
 end
 
-module Flat
+module KeyValueMapper
   
   module Adapters
     

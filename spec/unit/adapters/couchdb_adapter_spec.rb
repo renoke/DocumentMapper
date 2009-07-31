@@ -3,8 +3,8 @@ require File.dirname(__FILE__) + '/../../spec_helper'
 describe "CouchdbAdapter" do
   
   before(:all) do
-    Flat.setup(:adapter => 'couchdb', :database=>"http://127.0.0.1:5984/flatdoc-test")
-    @adapter = Flat.repository
+    KeyValueMapper.setup(:adapter => 'couchdb', :database=>"http://127.0.0.1:5984/flatdoc-test")
+    @adapter = KeyValueMapper.repository
   end
   
   after(:all) do
@@ -13,7 +13,7 @@ describe "CouchdbAdapter" do
   
   describe "Write" do
     
-    it_should_behave_like "a FlatDoc Adapter"
+    it_should_behave_like "a KeyValueMapper Adapter"
     
   end
   

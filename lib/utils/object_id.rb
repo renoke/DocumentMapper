@@ -17,7 +17,7 @@
 require 'mutex_m'
 require File.dirname(__FILE__)+'/byte_buffer'
 
-module Flat
+module KeyValueMapper
   module Utils
       class ObjectID
 

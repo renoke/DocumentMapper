@@ -1,13 +1,13 @@
 begin
   require 'mongo'
 rescue
-  puts 'You need mongodb-monngo gem to use CouchDB FlatDoc'
+  puts 'You need mongodb-mongo gem to use MongoDB KeyValueMapper'
 end
 
 require File.dirname(__FILE__) + '/../utils/object_id'
-include Flat::Utils
+include KeyValueMapper::Utils
 
-module Flat
+module KeyValueMapper
   
   module Adapters
     
@@ -28,7 +28,7 @@ module Flat
       module Write
         
         def create(resources)
-          resources[:_id] = Flat::Utils::ObjectID.new.to_s
+          resources[:_id] = KeyValueMapper::Utils::ObjectID.new.to_s
           @collection.insert(resources) && resources[:_id]
         end
 

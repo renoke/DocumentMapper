@@ -1,6 +1,6 @@
 
 
-module Flat
+module KeyValueMapper
   
     module Config
     
@@ -18,7 +18,7 @@ module Flat
       end
     
       def adapter_class
-        Flat::Adapters::const_get(adapter_name)
+        KeyValueMapper::Adapters::const_get(adapter_name)
       end
     
       def adapter_name

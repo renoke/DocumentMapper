@@ -9,7 +9,7 @@ require dir + '/core_mash'
 require dir + '/crud'
 require dir + '/validatable/validatable'
 
-module Flat
+module KeyValueMapper
   
   class Document < Hash
   

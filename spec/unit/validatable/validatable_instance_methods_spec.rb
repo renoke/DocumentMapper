@@ -4,7 +4,7 @@ describe Validatable do
   
   before(:all) do
     
-    class Ocean < Flat::Document
+    class Ocean < KeyValueMapper::Document
       validates_presence_of :water
     end
     
