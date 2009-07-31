@@ -1,5 +1,4 @@
-gem     'extlib', '~>0.9.10'
-require 'extlib'
+
 
 dir = File.expand_path(File.dirname(__FILE__))
 require dir + '/adapters/adapter'
@@ -31,10 +30,7 @@ module Flat
     
     include CoreMash
     include Crud
-    include Extlib::Hook
     include Validatable
-    
-    register_instance_hooks :save, :destroy
     
   end #class Document
   
