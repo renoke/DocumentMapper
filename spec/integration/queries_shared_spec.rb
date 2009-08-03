@@ -1,4 +1,4 @@
-describe "a FlatDoc Class for CRUD", :shared => true do
+describe "a Document Class for CRUD", :shared => true do
   
   it "reads 10 documents after creating 10 bills" do
     10.times do |i|
@@ -9,11 +9,11 @@ describe "a FlatDoc Class for CRUD", :shared => true do
     it.size.should == 10
   end
   
-  it "reads first document as a FlatDoc Mash" do
+  it "reads first document as a document" do
     it = Bill.first
     it.number.to_i.should >= 0
     it['type'].should == 'Bill'
-    it.should be_a(Flat::Document)
+    it.should be_a(KeyValueMapper::Document)
   end
   
   
@@ -29,7 +29,7 @@ describe "a FlatDoc Class for CRUD", :shared => true do
   
 end
 
-describe "a FlatDoc Instance for CRUD", :shared => true do
+describe "a Document Instance for CRUD", :shared => true do
   
   it "returns an id of a document" do
     it = Bill.first

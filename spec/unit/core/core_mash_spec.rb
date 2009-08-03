@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../spec_helper'
+require File.dirname(__FILE__) + '/../../spec_helper'
 describe KeyValueMapper::Document do
   before(:each) do
     @mash = KeyValueMapper::Document.new

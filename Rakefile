@@ -1,6 +1,6 @@
 require 'rake'
 require 'spec/rake/spectask'
-require './lib/document.rb'
+require 'key_value_mapper.rb'
 
 task :default => ['spec:all']
 
@@ -13,12 +13,12 @@ namespace "spec" do
 
   desc "run validatable spec"
   Spec::Rake::SpecTask.new("validatable") do |t|
-    t.spec_files = FileList['spec/unit/adapters/*']
+    t.spec_files = FileList['spec/unit/validatable/*']
   end
 
-  desc "run main files spec"
-  Spec::Rake::SpecTask.new("main") do |t|
-    t.spec_files = FileList['spec/unit/config_spec.rb', 'spec/unit/core_mash_spec.rb', 'spec/unit/crud_spec.rb']
+  desc "run core spec"
+  Spec::Rake::SpecTask.new("core") do |t|
+    t.spec_files = FileList['spec/unit/core/*']
   end
   
   desc "run integration spec"
@@ -27,17 +27,16 @@ namespace "spec" do
   end
   
   desc "run all spec"
-  task :all do
-    puts 'Running adapters spec'
-    Rake::Task["spec:adapters"].execute
-    puts 'Running validatable spec'
-    Rake::Task["spec:validatable"].execute
-    puts 'Running main file spec'
-    Rake::Task["spec:main"].execute
-    puts 'Running integration spec'
-    Rake::Task["spec:integration"].execute
+  task :all => [:adapters, :validatable, :core, :integration]
+  
+  desc "run all spec with rcov"
+  Spec::Rake::SpecTask.new("rcov") do |t|
+    t.spec_files = FileList['spec/unit/core/*', 'spec/unit/adapters/*', 
+                            'spec/unit/validatable/*', 'spec/unit/integration/*']
+    t.rcov = true
+    t.rcov_opts = ['--exclude', 'spec,/Library,/Users']
   end
-
+  
 end
 
 

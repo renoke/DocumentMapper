@@ -32,7 +32,7 @@ module KeyValueMapper
       private
     
       def require_adapter(file_string)
-        require root + '/adapters/' + file_string
+        require root + '/../adapters/' + file_string
       end
     
     end

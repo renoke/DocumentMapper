@@ -4,13 +4,13 @@ describe Validatable do
   
   before(:all) do
     
-    class Ocean < KeyValueMapper::Document
-      validates_presence_of :water
+    class Univers < KeyValueMapper::Document
+      validates_presence_of :earth
     end
     
   end
   it "should respond_to valid?" do
-    @it = Ocean.new
+    @it = Univers.new
     @it.should respond_to(:valid?)
   end
 end
