@@ -38,7 +38,7 @@ describe KeyValueMapper::Crud::ClassMethods do
     @dbclass.should_receive(:read_all).once.and_return([{:key=>'test1'},{:key=>'test2'}])
     it = @class.all
     it.should be_kind_of(Array)
-    it.first.should be_kind_of(Hash)
+    it.first.should be_kind_of(KeyValueMapper::Document)
   end
   
   it "first first Document" do

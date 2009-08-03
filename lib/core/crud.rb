@@ -23,7 +23,7 @@ module KeyValueMapper
       end
       
       def all(query={})
-        db.read_all(query)
+        db.read_all(query).to_a.map{|doc| new(doc)}
       end
       
       def first(query={})
