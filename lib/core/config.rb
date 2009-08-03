@@ -1,6 +1,6 @@
 
 
-module KeyValueMapper
+module DocumentMapper
   
     module Config
     
@@ -18,7 +18,7 @@ module KeyValueMapper
       end
     
       def adapter_class
-        KeyValueMapper::Adapters::const_get(adapter_name)
+        DocumentMapper::Adapters::const_get(adapter_name)
       end
     
       def adapter_name

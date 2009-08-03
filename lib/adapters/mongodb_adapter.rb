@@ -1,13 +1,13 @@
 begin
   require 'mongo'
 rescue
-  puts 'You need mongodb-mongo gem to use MongoDB KeyValueMapper'
+  puts 'You need mongodb-mongo gem to use MongoDB DocumentMapper'
 end
 
 require File.dirname(__FILE__) + '/../utils/object_id'
-include KeyValueMapper::Utils
+include DocumentMapper::Utils
 
-module KeyValueMapper
+module DocumentMapper
   
   module Adapters
     
@@ -28,7 +28,7 @@ module KeyValueMapper
       module Write
         
         def create(resources)
-          resources[:_id] = KeyValueMapper::Utils::ObjectID.new.to_s
+          resources[:_id] = DocumentMapper::Utils::ObjectID.new.to_s
           @collection.insert(resources) && resources[:_id]
         end
 

@@ -4,7 +4,7 @@ describe Validatable::ClassMethods do
   
   before(:all) do
     
-    class Ocean < KeyValueMapper::Document
+    class Ocean < DocumentMapper::Base
       validates_presence_of :water
     end
     

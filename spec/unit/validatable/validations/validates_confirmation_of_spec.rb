@@ -3,11 +3,11 @@ require File.dirname(__FILE__) + '/../../../spec_helper'
 describe Validatable::ValidatesAcceptanceOf do
   
   before(:all) do
-    class Cloud < KeyValueMapper::Document
+    class Cloud < DocumentMapper::Base
       validates_confirmation_of :water
     end
     
-    class River < KeyValueMapper::Document
+    class River < DocumentMapper::Base
       validates_confirmation_of :water, :case_sensitive => false
     end
     

@@ -13,7 +13,7 @@ describe "a Document Class for CRUD", :shared => true do
     it = Bill.first
     it.number.to_i.should >= 0
     it['type'].should == 'Bill'
-    it.should be_a(KeyValueMapper::Document)
+    it.should be_a(DocumentMapper::Base)
   end
   
   

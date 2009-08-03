@@ -1,10 +1,10 @@
 begin
   require 'couchrest'
 rescue
-  puts 'You need couchrest gem to use CouchDB KeyValueMapper'
+  puts 'You need couchrest gem to use CouchDB DocumentMapper'
 end
 
-module KeyValueMapper
+module DocumentMapper
   
   module Adapters
     

@@ -1,16 +1,16 @@
-module KeyValueMapper
+module DocumentMapper
   
   module Crud
     
     module ClassMethods
       
       def db
-        KeyValueMapper.repository
+        DocumentMapper.repository
       end
     
       def get(id)
         doc = db.get(id)
-        doc && KeyValueMapper::Document.new(doc)
+        doc && DocumentMapper::Base.new(doc)
       end
     
       def get!(id)
@@ -55,7 +55,7 @@ module KeyValueMapper
       private
     
       def db
-        KeyValueMapper.repository
+        DocumentMapper.repository
       end
     
       def create
@@ -86,4 +86,4 @@ module KeyValueMapper
     
   end #Crud
   
-end #KeyValueMapper
+end #DocumentMapper

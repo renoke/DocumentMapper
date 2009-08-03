@@ -1,4 +1,4 @@
-describe "a KeyValueMapper Adapter", :shared=> true do
+describe "a DocumentMapper Adapter", :shared=> true do
   
   it "get document id like a Hash" do
     document_id = @adapter.create('key'=>'value')

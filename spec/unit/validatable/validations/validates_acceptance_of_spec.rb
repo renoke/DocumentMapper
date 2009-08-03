@@ -3,7 +3,7 @@ require File.dirname(__FILE__) + '/../../../spec_helper'
 describe Validatable::ValidatesAcceptanceOf do
   
   before(:all) do
-    class ::Lac < KeyValueMapper::Document
+    class ::Lac < DocumentMapper::Base
       validates_acceptance_of :water
     end
   end
@@ -46,7 +46,7 @@ describe Validatable::ValidatesAcceptanceOf do
   end
   
   it "should validate with accept option" do
-    class ::Sea < KeyValueMapper::Document
+    class ::Sea < DocumentMapper::Base
       validates_acceptance_of :water, :accept=>'salty'
     end
     it = ::Sea.new(:water=>'salty')

@@ -4,7 +4,7 @@ describe Validatable do
   
   before(:all) do
     
-    class Univers < KeyValueMapper::Document
+    class Univers < DocumentMapper::Base
       validates_presence_of :earth
     end
     

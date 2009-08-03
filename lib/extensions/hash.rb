@@ -2,7 +2,7 @@
 class Hash
 # Returns a new Mash initialized from this Hash.
   def to_mash
-    mash = KeyValueMapper::Document.new(self)
+    mash = DocumentMapper::Base.new(self)
     mash.default = default
     mash
   end

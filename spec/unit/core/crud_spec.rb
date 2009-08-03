@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/../../spec_helper'
 include MockDocument
 
 
-describe KeyValueMapper::Crud::ClassMethods do
+describe DocumentMapper::Crud::ClassMethods do
 
   before(:each) do
     setup_class
@@ -12,7 +12,7 @@ describe KeyValueMapper::Crud::ClassMethods do
     @dbclass.should_receive(:get).with(1).and_return('foo'=>'bar', 'id'=>1)
     it = @class.get(1)
     it.should == {'foo'=>'bar', 'id'=>1}
-    it.should be_kind_of(KeyValueMapper::Document)
+    it.should be_kind_of(DocumentMapper::Base)
   end
   
   it "return nil if it couldn't get a Document" do
@@ -26,25 +26,25 @@ describe KeyValueMapper::Crud::ClassMethods do
   end
   
   it "create a Document" do
-    instance = KeyValueMapper::Document.new('foo'=>'bar')
+    instance = DocumentMapper::Base.new('foo'=>'bar')
     instance.stub!(:db).and_return(@dbclass)
     @dbclass.should_receive(:create).and_return(1)
     @class.should_receive(:new).with('foo'=>'bar').and_return(instance)
     it = @class.create('foo'=>'bar')
-    it.should be_kind_of(KeyValueMapper::Document)
+    it.should be_kind_of(DocumentMapper::Base)
   end
   
   it "find all Documents" do
     @dbclass.should_receive(:read_all).once.and_return([{:key=>'test1'},{:key=>'test2'}])
     it = @class.all
     it.should be_kind_of(Array)
-    it.first.should be_kind_of(KeyValueMapper::Document)
+    it.first.should be_kind_of(DocumentMapper::Base)
   end
   
   it "first first Document" do
     @dbclass.should_receive(:read_one).and_return({:foo=>'bar', :id=>1})
     it = @class.first
-    it.should be_kind_of(KeyValueMapper::Document)
+    it.should be_kind_of(DocumentMapper::Base)
     it.foo.should == 'bar'
   end
   
@@ -53,22 +53,22 @@ end
 
 
 
-describe KeyValueMapper::Crud::InstanceMethods do
+describe DocumentMapper::Crud::InstanceMethods do
   
   before(:each) do
     setup_instance
   end
   
   it "instantiate a new Document" do
-    @it = KeyValueMapper::Document.new(:foo => 'bar').should == {'foo' => 'bar'}
+    @it = DocumentMapper::Base.new(:foo => 'bar').should == {'foo' => 'bar'}
   end
   
   it "saves and creates a Document" do
     @db.should_receive(:create).and_return(1)
-    @it = KeyValueMapper::Document.new(:foo => 'bar')
+    @it = DocumentMapper::Base.new(:foo => 'bar')
     @it.stub!(:db).and_return(@db)
     @it.save
-    @it.should be_kind_of(KeyValueMapper::Document)
+    @it.should be_kind_of(DocumentMapper::Base)
     @it.should_not be_new_record
   end
   

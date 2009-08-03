@@ -1,4 +1,4 @@
-module KeyValueMapper
+module DocumentMapper
   
   module CoreMash
     
@@ -42,13 +42,13 @@ module KeyValueMapper
     # if there isn't a value already assigned to the key requested.
     def initializing_reader(key)
      return self[key] if key?(key)
-     self[key] = KeyValueMapper::Document.new
+     self[key] = DocumentMapper::Base.new
     end
 
     alias_method :regular_dup, :dup  
     # Duplicates the current mash as a new mash.
     def dup
-     KeyValueMapper::Document.new(self)
+     DocumentMapper::Base.new(self)
     end
 
 
@@ -78,11 +78,11 @@ module KeyValueMapper
     # Recursively merges this mash with the passed
     # in hash, merging each hash in the hierarchy.
     def deep_update(other_hash)
-     other_hash = other_hash.to_hash if other_hash.is_a?(KeyValueMapper::Document)
+     other_hash = other_hash.to_hash if other_hash.is_a?(DocumentMapper::Base)
      other_hash = other_hash.stringify_keys
      other_hash.each_pair do |k,v|
        k = convert_key(k)
-       self[k] = self[k].to_mash if self[k].is_a?(Hash) unless self[k].is_a?(KeyValueMapper::Document)
+       self[k] = self[k].to_mash if self[k].is_a?(Hash) unless self[k].is_a?(DocumentMapper::Base)
        if self[k].is_a?(Hash) && other_hash[k].is_a?(Hash)
          self[k] = self[k].deep_merge(other_hash[k]).dup
        else
@@ -141,8 +141,8 @@ module KeyValueMapper
     def convert_value(value, dup=false) #:nodoc:
      case value
        when Hash
-         value = value.dup if value.is_a?(KeyValueMapper::Document) && dup
-         value.is_a?(KeyValueMapper::Document) ? value : value.to_mash
+         value = value.dup if value.is_a?(DocumentMapper::Base) && dup
+         value.is_a?(DocumentMapper::Base) ? value : value.to_mash
        when Array
          value.collect{ |e| convert_value(e) }
        else

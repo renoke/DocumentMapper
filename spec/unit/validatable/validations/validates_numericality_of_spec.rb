@@ -3,7 +3,7 @@ require File.dirname(__FILE__) + '/../../../spec_helper'
 describe Validatable::ValidatesNumericalityOf do
   
   before(:all) do
-    class ::Water < KeyValueMapper::Document
+    class ::Water < DocumentMapper::Base
       validates_numericality_of :temp
     end
     @it = ::Water.new

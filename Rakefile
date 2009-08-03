@@ -1,6 +1,6 @@
 require 'rake'
 require 'spec/rake/spectask'
-require 'key_value_mapper.rb'
+require 'document_mapper.rb'
 
 task :default => ['spec:all']
 

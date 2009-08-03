@@ -1,6 +1,6 @@
 dir = File.expand_path(File.dirname(__FILE__))
 
-module KeyValueMapper
+module DocumentMapper
   
     module Adapters
     

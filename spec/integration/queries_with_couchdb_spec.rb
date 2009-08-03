@@ -1,17 +1,17 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 
-describe KeyValueMapper::Crud do
+describe DocumentMapper::Crud do
   
   before(:all) do
-    KeyValueMapper.setup(:adapter => 'couchdb', :database=>"http://127.0.0.1:5984/flatdoc-test")
+    DocumentMapper.setup(:adapter => 'couchdb', :database=>"http://127.0.0.1:5984/flatdoc-test")
     
-    class Bill < KeyValueMapper::Document
+    class Bill < DocumentMapper::Base
     end
   end
   
   after(:all) do
-    KeyValueMapper.repository.clear
+    DocumentMapper.repository.clear
   end
   
   it_should_behave_like "a Document Class for CRUD"
