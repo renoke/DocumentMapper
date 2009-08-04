@@ -13,6 +13,8 @@ module DocumentMapper
     
     class MongodbAdapter
       
+      attr_reader :collection
+      
       FINDER_OPTIONS = {:less => '$lt', :less_or_equal =>'$lte'}
       
       def initialize(options={})
@@ -22,7 +24,7 @@ module DocumentMapper
         port            = options[:port] || 27017
         @mongo          = XGen::Mongo::Driver::Mongo.new(host, port)
         @db             = @mongo.db(@database)
-        @collection     = @db.collection(collection)
+        @collection     = @db.collection(collection) 
       end
       
       module Write

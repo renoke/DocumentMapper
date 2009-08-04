@@ -3,7 +3,7 @@ require File.dirname(__FILE__) + '/../../spec_helper'
 describe "MongodbAdapter" do
   
   before(:all) do
-    DocumentMapper.setup(:adapter => 'mongodb', :database=>"test", :collection=>'test')
+    DocumentMapper.setup(:adapter => 'mongodb', :database=>"test", :collection=>'test_collection')
     @adapter = DocumentMapper.repository
   end
   
@@ -11,7 +11,7 @@ describe "MongodbAdapter" do
     @adapter.clear
   end
   
-  describe "Write" do
+  describe "Minimal" do
     it_should_behave_like "a DocumentMapper Adapter"
   end
   
@@ -121,6 +121,23 @@ describe "MongodbAdapter" do
       
     end
     
+    describe "adapter without collection name" do
+       before(:all) do
+         DocumentMapper.setup(:adapter => 'mongodb', :database=>"test")
+         @adapter = DocumentMapper.repository
+       end
+       
+       it "still return a collection if no collection is given" do
+         @adapter.collection.should be_a XGen::Mongo::Driver::Collection
+       end
+       
+       it "should return empty name if collection option is empty" do
+         @adapter.collection.name.should be_nil
+       end
+       
+       it_should_behave_like "a DocumentMapper Adapter"
+      
+    end
 
     
   end

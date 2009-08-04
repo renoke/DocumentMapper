@@ -11,7 +11,7 @@ describe "CouchdbAdapter" do
     @adapter.clear
   end
   
-  describe "Write" do
+  describe "Minimal" do
     
     it_should_behave_like "a DocumentMapper Adapter"
     

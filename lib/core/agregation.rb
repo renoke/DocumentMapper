@@ -7,8 +7,8 @@ module Agregation
       relation_name = name.to_s.downcase
       klass  = const_get(relation_name.camelize)
       
-      case card.to_s
-      when '1'
+      case 
+      when card.to_s == '1'
         agregate_one(relation_name, klass, options)
       else
         agregate_many(name, options)
@@ -21,7 +21,12 @@ module Agregation
     def agregate_one(relation_name,klass, options={})      
       define_method(relation_name) do
         klass.new(regular_reader(relation_name))
-      end    
+      end
+      
+      define_method("#{relation_name}=") do |instance|
+        document_writer('adress', 'toto') #instance.to_hash)
+      end
+            
     end
     
   end

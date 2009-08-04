@@ -1,11 +1,16 @@
 require File.dirname(__FILE__) + '/../../spec_helper'
 
-describe "Configuration" do
+describe DocumentMapper::Config do
   
   
-  before(:all) do
-    DocumentMapper::Adapters::FoobarAdapter = mock('FoobarAdapter', :new => Class.new)
-    DocumentMapper::Adapters::FoobarAdapter.stub!('new').and_return(Class.new)
+  before(:all) do    
+    class DocumentMapper::Adapters::FoobarAdapter
+      attr_accessor :foo
+      def initialize(hash={})
+        @foo = hash[:foo]
+      end
+    end
+    
     DocumentMapper.stub!('require')
     DocumentMapper.setup(:adapter=>'foobar')
   end
@@ -24,7 +29,15 @@ describe "Configuration" do
   end
   
   it "returns repository" do
-    DocumentMapper.repository.should be_instance_of(Class)
+    @it = DocumentMapper.repository
+    @it.should be_instance_of(DocumentMapper::Adapters::FoobarAdapter)
+    @it.foo.should be_nil
+  end
+  
+  it "returns a new repository if options is given" do
+    @it = DocumentMapper.repository(:foo=>'bar')
+    @it.should be_instance_of(DocumentMapper::Adapters::FoobarAdapter)
+    @it.foo.should == 'bar'
   end
  
 end

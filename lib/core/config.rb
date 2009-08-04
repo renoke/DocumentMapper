@@ -5,6 +5,7 @@ module DocumentMapper
     module Config
     
       def setup(options)
+        @default_options = options || {}
         adapter_string = options[:adapter].to_s
         adapter_file = adapter_string.downcase + '_adapter.rb'
         @adapter_name =  adapter_string.capitalize + 'Adapter'
@@ -25,8 +26,8 @@ module DocumentMapper
         @adapter_name
       end
     
-      def repository
-        @repository
+      def repository(options={})
+        options.empty? ? @repository : adapter_class.new(@default_options.merge(options))
       end
     
       private
