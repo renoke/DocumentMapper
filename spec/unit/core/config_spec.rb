@@ -2,13 +2,12 @@ require File.dirname(__FILE__) + '/../../spec_helper'
 
 describe "Configuration" do
   
-  before(:each) do
-    DocumentMapper.stub!('require')
-    DocumentMapper.setup(:adapter=>'foobar')
-  end
   
   before(:all) do
     DocumentMapper::Adapters::FoobarAdapter = mock('FoobarAdapter', :new => Class.new)
+    DocumentMapper::Adapters::FoobarAdapter.stub!('new').and_return(Class.new)
+    DocumentMapper.stub!('require')
+    DocumentMapper.setup(:adapter=>'foobar')
   end
 
   it "requires adapter file when setup database" do
