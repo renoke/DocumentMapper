@@ -34,8 +34,12 @@ module DocumentMapper
     end #ClassMethods
          
     module InstanceMethods
-         
+      
       def save
+        valid? ? save_without_validation : false
+      end
+         
+      def save_without_validation
         saved = new_record? ? create : update
       end
     

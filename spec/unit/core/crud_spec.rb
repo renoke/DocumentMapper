@@ -87,6 +87,13 @@ describe DocumentMapper::Crud::InstanceMethods do
     @mash.destroy.should be_true
   end
   
-  
+  it "doesn't save a document if it is not valid" do
+    class Foo < DocumentMapper::Base
+      validates_presence_of :bar
+    end
+    @it = Foo.new
+    @it.should_not be_valid
+    @it.save.should be_false
+  end
   
 end
