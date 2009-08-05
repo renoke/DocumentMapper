@@ -16,22 +16,22 @@ describe DocumentMapper::Relations::Aggregation::ClassMethods do
   end
   
 
-  describe 'Single Agregation' do
+  describe 'Single Aggregation' do
   
-    it "defines an agregate getter method" do
+    it "defines an aggregate getter method" do
       @it.should respond_to(:adress)
     end
   
   
-    it "defines an agregate setter method" do
+    it "defines an aggregate setter method" do
       @it.should respond_to(:adress=)
     end
   
-    it "returns an instance of agregate class" do
+    it "returns an instance of aggregate class" do
       @it.adress.should be_kind_of(Adress)
     end
   
-    it "instantiates an agregate class with stored hash" do
+    it "instantiates an aggregate class with stored hash" do
       @it['adress'] = {:street=>'Vaya con Dios', :city=>'Angel'}
       @it.adress.street.should == 'Vaya con Dios'
     end
@@ -41,7 +41,7 @@ describe DocumentMapper::Relations::Aggregation::ClassMethods do
       adress.to_hash.should == {'foo'=>'bar'}
     end
   
-    it "stores agregate instance as a hash" do
+    it "stores aggregate instance as a hash" do
       @it.adress = Adress.new(:road=>'To Hell', :place=>'Earth')
       @it.adress.road.should == 'To Hell'
     end

@@ -5,14 +5,8 @@ module DocumentMapper
     module Aggregation
       module ClassMethods
         def aggregate(card, name, options={})
-          relation = DocumentMapper::Relation.new(:aggregation, name, card, options)
-          case 
-          when card.to_s == '1'
-            aggregate_one(relation)
-          else
-            aggregate_many(relation)
-          end
-    
+          relation = DocumentMapper::Relation.new(:aggregation, name, card, options)         
+          relation.many? ? aggregate_many(relation) : aggregate_one(relation)
         end
     
         private
@@ -26,7 +20,9 @@ module DocumentMapper
             self[relation.name] = instance
           end         
         end
-    
+        
+        def aggregate_many(relation)
+        end
       end
   
       module InstanceMethods
