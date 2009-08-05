@@ -7,6 +7,7 @@ require File.dirname(__FILE__)+ "/../lib/adapters/adapter"
 
 require File.dirname(__FILE__)+ "/unit/adapters/adapters_shared"
 require File.dirname(__FILE__)+ "/integration/queries_shared"
+require File.dirname(__FILE__)+ "/integration/aggregation_shared"
 
 module MockDocument
   

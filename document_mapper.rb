@@ -1,4 +1,4 @@
-require 'rubygems'
+#require 'rubygems'
 require 'active_support/inflector'
 
 dir = File.expand_path(File.dirname(__FILE__)) + '/lib'
