@@ -5,7 +5,7 @@ module DocumentMapper
     module ClassMethods
       
       def db
-        DocumentMapper.repository
+        DocumentMapper.repository(:class=>self.name)
       end
     
       def get(id)
@@ -59,7 +59,7 @@ module DocumentMapper
       private
     
       def db
-        DocumentMapper.repository
+        DocumentMapper.repository(:class => self.class.name)
       end
     
       def create

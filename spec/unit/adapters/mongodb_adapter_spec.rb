@@ -135,11 +135,19 @@ describe "MongodbAdapter" do
          @adapter.collection.name.should be_nil
        end
        
-       it_should_behave_like "a DocumentMapper Adapter"
-      
+       it_should_behave_like "a DocumentMapper Adapter"   
     end
 
-    
+    describe "adapter with class options" do
+      before(:all) do
+        DocumentMapper.setup(:adapter=> 'mongodb', :database=>"test", :class=>'Dummy')
+        @adapter = DocumentMapper.repository
+      end
+      
+      it "returns a collection with class name" do
+        @adapter.collection.name.should == 'Dummy'
+      end
+    end
   end
   
   

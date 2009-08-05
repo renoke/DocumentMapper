@@ -24,7 +24,7 @@ module DocumentMapper
         port            = options[:port] || 27017
         @mongo          = XGen::Mongo::Driver::Mongo.new(host, port)
         @db             = @mongo.db(@database)
-        @collection     = @db.collection(collection) 
+        @collection     = @db.collection(collection || options[:class]) 
       end
       
       module Write
