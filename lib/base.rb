@@ -20,7 +20,7 @@ module DocumentMapper
     
     include CoreMash
     include Crud
-    include Agregation
+    include Relations::Aggregation
     include Validatable
     
   end 

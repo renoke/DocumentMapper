@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/../../spec_helper'
 
 
-describe DocumentMapper::Agregation::ClassMethods do
+describe DocumentMapper::Relations::Aggregation::ClassMethods do
   
   before(:all) do
     class Adress < DocumentMapper::Base
