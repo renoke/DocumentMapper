@@ -9,7 +9,7 @@ describe DocumentMapper::Agregation::ClassMethods do
     end
     
     class Person < DocumentMapper::Base
-      agregate 1, :adress
+      aggregate 1, :adress
     end
     
     @it = Person.new
@@ -43,7 +43,7 @@ describe DocumentMapper::Agregation::ClassMethods do
   
     it "stores agregate instance as a hash" do
       @it.adress = Adress.new(:road=>'To Hell', :place=>'Earth')
-      #@it.adress.should == 'To Hell'
+      @it.adress.road.should == 'To Hell'
     end
   
   end
