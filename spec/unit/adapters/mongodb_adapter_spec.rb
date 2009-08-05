@@ -128,7 +128,7 @@ describe "MongodbAdapter" do
        end
        
        it "still return a collection if no collection is given" do
-         @adapter.collection.should be_a XGen::Mongo::Driver::Collection
+         @adapter.collection.should be_a(XGen::Mongo::Driver::Collection)
        end
        
        it "should return empty name if collection option is empty" do
