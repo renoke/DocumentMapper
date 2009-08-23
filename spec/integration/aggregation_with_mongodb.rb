@@ -7,8 +7,8 @@ describe DocumentMapper::Relations::Aggregation do
     DocumentMapper.setup(:adapter => 'mongodb', :database=>"test")
   end
   
-  after(:all) do
-    DocumentMapper.repository.clear
+  after(:each) do
+    DocumentMapper.repository(:collection=>'Bill').clear
   end
   
   it_should_behave_like "Document with aggregation"

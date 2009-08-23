@@ -8,7 +8,7 @@ module DocumentMapper
   
   module Adapters
     
-    class CouchdbAdapter
+    class CouchrestAdapter
       def initialize(options={})
         @database = options[:database]
         @db=CouchRest.database!(@database)

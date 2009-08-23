@@ -2,6 +2,8 @@ module DocumentMapper
   
   module CoreMash
     
+    
+    
     def id #:nodoc:
      self["id"] ? self["id"] : super
     end

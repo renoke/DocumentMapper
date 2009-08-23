@@ -1,3 +1,5 @@
+
+
 module DocumentMapper
 
   module Relations
@@ -13,20 +15,30 @@ module DocumentMapper
     
         def aggregate_one(relation)      
           define_method(relation.name) do
-            relation.klass.new(regular_reader(relation.name))
+            relation.klass.new(self[relation.name])
           end
       
           define_method("#{relation.name}=") do |instance|
             self[relation.name] = instance
+            instance
           end         
         end
         
         def aggregate_many(relation)
+          define_method(relation.name) do
+            self[relation.name] = [] if self[relation.name].nil?
+            self[relation.name].collect! {|doc| relation.klass.new(doc)}
+          end
+      
+          define_method("#{relation.name}=") do |array|
+            self[relation.name] = array
+            array
+          end
         end
       end
   
       module InstanceMethods
-    
+        
       end
   
       def self.included(receiver)

@@ -30,6 +30,10 @@ module DocumentMapper
         1.0/0
       end
       
+      def ivar
+        "@relation_#{name}"
+      end
+      
       private
       
       def extract_min_max(cardinality)       
@@ -38,7 +42,7 @@ module DocumentMapper
           @min = @max = cardinality
         when Range
           @min, @max  = cardinality.min, cardinality.max
-        when n
+        when :n
           @min, @max  = 0, n
         end
       end

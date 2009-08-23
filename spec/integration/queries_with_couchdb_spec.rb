@@ -4,7 +4,7 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe DocumentMapper::Crud do
   
   before(:all) do
-    DocumentMapper.setup(:adapter => 'couchdb', :database=>"http://127.0.0.1:5984/flatdoc-test")
+    DocumentMapper.setup(:adapter => 'couchrest', :database=>"http://127.0.0.1:5984/flatdoc-test")
     
     class Bill < DocumentMapper::Base
       

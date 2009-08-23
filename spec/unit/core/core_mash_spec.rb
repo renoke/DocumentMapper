@@ -1,5 +1,5 @@
 require File.dirname(__FILE__) + '/../../spec_helper'
-describe DocumentMapper::Base do
+describe DocumentMapper::CoreMash do
   before(:each) do
     @mash = DocumentMapper::Base.new
   end
@@ -85,6 +85,13 @@ describe DocumentMapper::Base do
     @mash.details.address.state.should == 'TX'
   end
   
+  it "should store an array and use array's methods" do
+    @mash.array = []
+    @mash.array << 1
+    @mash.array.push 2
+    @mash.array.should == [1,2]
+  end
+  
   context "#initialize" do
     it "should convert an existing hash to a Mash" do
       converted = DocumentMapper::Base.new({:abc => 123, :name => "Bob"})
@@ -122,6 +129,21 @@ describe DocumentMapper::Base do
       initial.default.should be_nil
       initial.test.should == []
       initial.test?.should be_true
+    end
+  end
+  
+  context "aggregation" do
+    it "should aggregate mash object" do
+      inside = DocumentMapper::Base.new(:foo=>'bar', :bar=>'foo')
+      @mash.inside = inside
+      @mash.inside.foo.should == 'bar'
+    end
+    
+    it "should aggregate hash object" do
+      inside = {:foo=>'bar', :bar=>'foo'}
+      @mash.inside = inside
+      @mash.inside.should be_kind_of(DocumentMapper::Base)
+      @mash.inside.foo.should == 'bar'
     end
   end
 end

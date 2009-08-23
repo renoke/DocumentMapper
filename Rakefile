@@ -23,7 +23,7 @@ namespace "spec" do
   
   desc "run integration spec"
   Spec::Rake::SpecTask.new("integration") do |t|
-    t.spec_files = FileList['spec/integration/*']
+    t.spec_files = FileList['spec/integration/*_spec.rb']
   end
   
   desc "run all spec"

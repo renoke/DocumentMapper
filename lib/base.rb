@@ -16,7 +16,7 @@ module DocumentMapper
     
     alias_method :regular_reader, :[]
     alias_method :regular_writer, :[]=
-    alias_method :picky_key?, :key?
+    alias_method :picky_key?,     :key?
     
     include CoreMash
     include Crud
