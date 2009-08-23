@@ -3,3 +3,4 @@
 sandbox.rb
 .gitignore
 coverage
+*.tmproj
