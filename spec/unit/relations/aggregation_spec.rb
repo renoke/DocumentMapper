@@ -82,6 +82,9 @@ describe DocumentMapper::Relations::Aggregation::ClassMethods do
       @it.regular_reader('telephons').last.house.should == 1111
     end
     
+    it "render an array by default" do
+      @it.telephons.should == []
+    end
   end
   
 end

@@ -1,9 +1,12 @@
-describe "a Document Class for CRUD", :shared => true do
+describe "a mapper with minimal crud methods", :shared => true do
   
-  it "reads 10 documents after creating 10 bills" do
+  before(:all) do
     10.times do |i|
       Bill.create(:type=>'Bill', :number=>"#{i}")
     end
+  end
+  
+  it "reads 10 documents after creating 10 bills" do
     it = Bill.all
     it.should be_a(Array)
     it.size.should == 10
@@ -26,10 +29,6 @@ describe "a Document Class for CRUD", :shared => true do
   it "raises an error if it didn't get! a document" do
     lambda{Bill.get! 'I-am-not-here'}.should raise_error
   end
-  
-end
-
-describe "a Document Instance for CRUD", :shared => true do
   
   it "returns an id of a document" do
     it = Bill.first

@@ -30,7 +30,7 @@ class Hash
     raise(ArgumentError, "Unknown key(s): #{unknown_keys.join(', ')}") unless unknown_keys.empty?
   end
   
-  def flatten_options
+  def flatten_options!
     if self[:options].is_a?(Hash)
       options = self.delete(:options) 
       self.merge!(options)

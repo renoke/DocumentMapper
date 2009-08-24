@@ -11,7 +11,7 @@ describe "CouchrestAdapter" do
     @adapter.clear
   end
   
-  describe "Minimal" do
+  context "Minimal" do
     
     it_should_behave_like "a DocumentMapper Adapter"
     
@@ -19,7 +19,7 @@ describe "CouchrestAdapter" do
   
   
   
-  describe "Read" do
+  context "Read" do
     
     before(:all) do
       9.times do |i|
@@ -43,7 +43,7 @@ describe "CouchrestAdapter" do
       }'
     end
     
-    describe "view" do
+    context "view" do
     
       it "check if a specified view exist" do
         @adapter.has_view?('test/test').should be_true
@@ -65,7 +65,7 @@ describe "CouchrestAdapter" do
     
     end
     
-    describe "ids" do
+    context "ids" do
       
        it "reads from an array of ids" do
           @adapter.read_all('id1').size.should == 1
@@ -79,7 +79,7 @@ describe "CouchrestAdapter" do
         
     end
     
-    describe "all" do
+    context "all" do
       it "reads all" do
         @adapter.read_all.size.should == 9
       end
@@ -112,24 +112,24 @@ describe "CouchrestAdapter" do
       
       
       it "reads all with a slow view" do
-        @adapter.read_all(:all, :map=>@slow_view).size.should == 9
-        @adapter.read_all(:all, :map=>@slow_view, :startkey=>'id0', :endkey=>'id3').size.should == 4
+        @adapter.read_all( :map=>@slow_view).size.should == 9
+        @adapter.read_all( :map=>@slow_view, :startkey=>'id0', :endkey=>'id3').size.should == 4
       end
     
       it "reads nil if no document found with a slow view" do
-        @adapter.read_all(:all, :map=>@slow_view, :key=>'i-am-not-here').should be_nil
+        @adapter.read_all(:map=>@slow_view, :key=>'i-am-not-here').should be_nil
       end
       
       it "reads all with a slow view and a limit in options" do
-        @adapter.read_all(:all, :map=>@slow_view, :options=>{:limit=>1}).size.should == 1
+        @adapter.read_all(:map=>@slow_view, :options=>{:limit=>1}).size.should == 1
       end
       
       it "reads all with a slow and a limit" do
-        @adapter.read_all(:all, :map=>@slow_view, :limit=>1).size.should == 1
+        @adapter.read_all(:map=>@slow_view, :limit=>1).size.should == 1
       end
     end
     
-    describe "one" do
+    context "one" do
       it "reads first document and return a Hash" do
         it = @adapter.read_one
         it.should be_kind_of(Hash)

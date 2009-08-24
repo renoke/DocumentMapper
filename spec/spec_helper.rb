@@ -5,6 +5,7 @@ require "spec"
 require File.dirname(__FILE__)+ "/../document_mapper"
 require File.dirname(__FILE__)+ "/../lib/adapters/adapter"
 
+require File.dirname(__FILE__)+ "/models"
 require File.dirname(__FILE__)+ "/unit/adapters/adapters_shared"
 require File.dirname(__FILE__)+ "/integration/queries_shared"
 require File.dirname(__FILE__)+ "/integration/aggregation_shared"

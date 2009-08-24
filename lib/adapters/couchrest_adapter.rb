@@ -60,7 +60,7 @@ module DocumentMapper
             splited = name.split('/')
             design  = splited.shift  
             view    = splited.join('/')
-            get("_design/#{design}")['views'].has_key?(view)
+            get("_design/#{design}")['views'].has_key?(view) rescue raise RuntimeError.new("no view #{design}/#{view} found")
           else
             nil
           end
@@ -69,18 +69,18 @@ module DocumentMapper
         
         def read_all(*args)
           query = args.extract_options!
-          query.flatten_options
-          name = args.first
+          query.flatten_options!
+          name = args.first || []
           case 
-          when name == :all || name == :slow || name.nil?
+          when name == :all || name == :slow || name.empty?
             map = query.delete(:map) || query.delete('map') || "function(doc) {emit(doc._id, doc);}"
             reduce    = query.delete(:reduce) || query.delete('reduce')
             response = @db.slow_view({:map => map, :reduce=>reduce}, query)
           when has_view?(name)
             response  = @db.view(name, query)
           else
-            args = args.flatten.compact.uniq
-            response  = @db.documents(:keys => args) || {}
+            ids = args.to_a.flatten.compact.uniq
+            response  = @db.documents(:keys => ids) || {}
           end
             
           return if not_found(response)
@@ -90,6 +90,7 @@ module DocumentMapper
         
         def read_one(*args)
           query = args.extract_options!
+          query.flatten_options!
           name = args.shift || :all
           read_all(name, query.merge(:limit=>1)).first['value']
         end

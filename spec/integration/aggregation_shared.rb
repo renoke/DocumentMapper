@@ -1,15 +1,4 @@
-class Bill < DocumentMapper::Base
-  aggregate 1, :vat_footer
-  aggregate :n, :products
-end
 
-class VatFooter < DocumentMapper::Base
-  def total
-    amount + tax
-  end
-end
-
-class Product < DocumentMapper::Base; end
 
 describe "Document with aggregation", :shared=>true do 
 
@@ -35,7 +24,7 @@ describe "Document with aggregation", :shared=>true do
       bill.products.first.should be_kind_of(Product)
     end
     
-    it "aggregation can be used  like an array" do
+    it "saves aggregation like an array" do
       bill = Bill.new
       bill.products << Product.new(:name=>'tokyo')
       bill.products << Product.new(:name=>'berkley')
@@ -44,6 +33,17 @@ describe "Document with aggregation", :shared=>true do
       bill = Bill.first
       bill.products.size.should == 2
       bill.destroy
+    end
+    
+    it "saves deep aggregation" do
+      model = Model.new(:size=>'XL')
+      product_1 = Product.new(:name => 't-shirt', :model=> model)
+      product_2 = Product.new(:name => 'pants', :model=> model)
+      bill = Bill.new(:products => [product_1, product_2])
+      bill.save.should be_true
+      bill = Bill.first
+      bill.products.size.should == 2
+      bill.products.first.model.should be_kind_of(Model)
     end
   end
 end
