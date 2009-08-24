@@ -42,14 +42,12 @@ describe DocumentMapper::Relations::Aggregation do
       Bill.all(:map => @slow_view, :key=>'aaa').size.should == 1
     end
     
-    it "finds view" do
-      Bill.get('_design/products').views.size.should == 1
-    end
-    
     it "reads with view" do
       Bill.all('products/name').size.should == 9
       Bill.all('products/name', :key=>'aaa').size.should == 1
     end
+    
+
     
   end
 end

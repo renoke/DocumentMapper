@@ -87,6 +87,11 @@ describe "CouchrestAdapter" do
       it "reads all with :all" do
         @adapter.read_all(:all).size.should == 9
       end
+      
+      it "reads all with descending order" do
+        @adapter.read_all.first['_id'].should == 'id0'
+        @adapter.read_all(:descending=>true).first['_id'].should == 'id8'
+      end
 
       it "reads all with a query" do
         @adapter.read_all(:keys=>['id0','id1']).size.should == 2
@@ -107,9 +112,7 @@ describe "CouchrestAdapter" do
       
       it "reads all within limit in options" do
         @adapter.read_all(:options=>{:limit=>1}).size.should == 1
-      end
-      
-      
+      end    
       
       it "reads all with a slow view" do
         @adapter.read_all( :map=>@slow_view).size.should == 9

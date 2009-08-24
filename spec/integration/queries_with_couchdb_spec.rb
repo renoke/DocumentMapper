@@ -42,6 +42,11 @@ describe DocumentMapper::Crud do
       Bill.all('test/number').size.should == 9
     end
     
+    it "reads with descending options" do
+      pending("wait for sorting")
+      #Bill.all(:descending=>true).first['value']['number'].should == 8
+    end
+    
   end
   
 end

@@ -84,7 +84,7 @@ module DocumentMapper
           end
             
           return if not_found(response)
-          response['rows']
+          response['rows'].map{|doc| doc['value'] }
           
         end
         
@@ -92,7 +92,7 @@ module DocumentMapper
           query = args.extract_options!
           query.flatten_options!
           name = args.shift || :all
-          read_all(name, query.merge(:limit=>1)).first['value']
+          read_all(name, query.merge(:limit=>1)).first
         end
         
         private
