@@ -12,15 +12,13 @@ module DocumentMapper
       end
       
       def class_name
-        options[:class_name] || (many? ? name.to_s.classify : name.to_s.camelize)
+        @class_name ||= options[:class_name] || (many? ? name.to_s.classify : name.to_s.camelize)
       end
       
       def klass
-        DocumentMapper.const_get(class_name)
+        @klass ||= DocumentMapper.const_get(class_name)
       end
       
-      def proxy_class
-      end
       
       def many?
         max > 1
@@ -30,9 +28,6 @@ module DocumentMapper
         1.0/0
       end
       
-      def ivar
-        "@relation_#{name}"
-      end
       
       private
       
