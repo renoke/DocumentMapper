@@ -72,7 +72,7 @@ module DocumentMapper
           @collection.find(query,query_options).entries
         end
         
-        def read_one(query={})
+        def read_first(query={})
           options = query.delete(:options) || {}
           @collection.find_first(query, options)
         end

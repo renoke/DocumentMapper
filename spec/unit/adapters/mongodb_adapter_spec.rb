@@ -107,7 +107,7 @@ describe "MongodbAdapter" do
     describe "first" do
       
       before(:all) do
-        @it = @adapter.read_one
+        @it = @adapter.read_first
       end
       
       it "reads first document found" do

@@ -42,7 +42,7 @@ describe DocumentMapper::Crud::ClassMethods do
   end
   
   it "first first Document" do
-    @dbclass.should_receive(:read_one).and_return({:foo=>'bar', :id=>1})
+    @dbclass.should_receive(:read_first).and_return({:foo=>'bar', :id=>1})
     it = @class.first
     it.should be_kind_of(DocumentMapper::Base)
     it.foo.should == 'bar'

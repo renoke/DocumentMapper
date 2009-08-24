@@ -26,8 +26,8 @@ module DocumentMapper
         db.read_all(*query).to_a.map{|doc| new(doc)}
       end
       
-      def first(query={})
-        new db.read_one(query)
+      def first(*query)
+        new db.read_first(*query)
       end
       
       

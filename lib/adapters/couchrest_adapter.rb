@@ -88,7 +88,7 @@ module DocumentMapper
           
         end
         
-        def read_one(*args)
+        def read_first(*args)
           query = args.extract_options!
           query.flatten_options!
           name = args.shift || :all

@@ -134,13 +134,13 @@ describe "CouchrestAdapter" do
     
     context "one" do
       it "reads first document and return a Hash" do
-        it = @adapter.read_one
+        it = @adapter.read_first
         it.should be_kind_of(Hash)
         it['test'].should == true
       end
       
       it "reads first document from view" do
-        it = @adapter.read_one('test/test')
+        it = @adapter.read_first('test/test')
         it.should be_kind_of(Hash)
         it['test'].should == true
       end
