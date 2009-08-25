@@ -34,10 +34,6 @@ module DocumentMapper
           @collection.insert(resources) && resources[:_id]
         end
 
-        def get(id)
-          @collection.find_first(:_id => id)
-        end
-
         def update(id, attributes)
             if object = get(id)
               object.merge!(attributes)
@@ -61,25 +57,40 @@ module DocumentMapper
       
       module Read
         
+        def get(id)
+          @collection.find_first(:_id => id)
+        end
+        
         def read_all(query={})
-          query_options = {
-            :limit  => query.delete(:limit) || 0,
-            :offset => query.delete(:offset)|| 0,
-            :sort   => query.delete(:sort),
-            :hint   => query.delete(:hint),
-            :fields => query.delete(:fields) || query.delete(:select)
-          }
-          @collection.find(query,query_options).entries
+          options = optionfy(query)
+          @collection.find(query,options).entries
         end
         
         def read_first(query={})
-          options = query.delete(:options) || {}
-          @collection.find_first(query, options)
+          options = optionfy(query.merge(:limit=>1, :sort=>'$natural 1'))
+          @collection.find(query, options).entries[0]
+        end
+        
+        def read_last(query={})
+          options = optionfy(query.merge(:limit=>1, :sort=>{'_id'=>'-1'}))
+          @collection.find(query, options).entries[0]
         end
         
         def read_ids(*ids)
           ids = ids.flatten.compact.uniq
           @collection.find('_id'=>{'$in'=>ids}).to_a
+        end
+        
+        private
+        
+        def optionfy(query)
+          {
+            :limit  => query.delete(:limit) || 0,
+            :offset => query.delete(:offset)|| 0,
+            :sort   => query.delete(:sort),
+            :hint   => query.delete(:hint),
+            :fields => query.delete(:fields) || query.delete(:select),
+          }
         end
         
       end

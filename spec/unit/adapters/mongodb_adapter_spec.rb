@@ -22,7 +22,7 @@ describe "MongodbAdapter" do
       end
     end
     
-    describe "all" do
+    context "all" do
       
       it "reads all documents document" do
         @adapter.read_all.entries.size.should == 9
@@ -68,7 +68,7 @@ describe "MongodbAdapter" do
       
     end
     
-    describe "options" do
+    context "options" do
       
       it "reads with limit options " do
         @adapter.read_all(:limit=>2).entries.size.should == 2
@@ -96,7 +96,7 @@ describe "MongodbAdapter" do
       
     end
     
-    describe "ids" do
+    context "ids" do
       
       it "reads by one or more id" do
         @adapter.read_ids('id1','id2').size.should == 2
@@ -104,24 +104,31 @@ describe "MongodbAdapter" do
       
     end
     
-    describe "first" do
-      
-      before(:all) do
-        @it = @adapter.read_first
-      end
+    context "first" do
       
       it "reads first document found" do
+        @it = @adapter.read_first
         @it['_id'].should == 'id0'
         @it['test'].should be_true
       end
       
       it "is a Hash" do
+        @it = @adapter.read_first
         @it.should be_a(Hash)
       end
       
     end
     
-    describe "adapter without collection name" do
+    context "last" do
+      
+      it "reads last document found" do
+        @adapter.create({:last_document=>'true'})
+        @it = @adapter.read_last
+        @it['last_document'].should == 'true'
+      end
+    end
+    
+    context "adapter without collection name" do
        before(:all) do
          DocumentMapper.setup(:adapter => 'mongodb', :database=>"test")
          @adapter = DocumentMapper.repository
@@ -138,7 +145,7 @@ describe "MongodbAdapter" do
        it_should_behave_like "a DocumentMapper Adapter"   
     end
 
-    describe "adapter with class options" do
+    context "adapter with class options" do
       before(:all) do
         DocumentMapper.setup(:adapter=> 'mongodb', :database=>"test", :class=>'Dummy')
         @adapter = DocumentMapper.repository

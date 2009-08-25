@@ -30,6 +30,10 @@ module DocumentMapper
         new db.read_first(*query)
       end
       
+      def last(*query)
+        new db.read_last(*query)
+      end
+      
       
     end #ClassMethods
          
