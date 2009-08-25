@@ -95,6 +95,13 @@ module DocumentMapper
           read_all(name, query.merge(:limit=>1)).first
         end
         
+        def read_last(*args)
+          query = args.extract_options!
+          query.flatten_options!
+          name = args.shift || :all
+          read_all(name, query.merge(:limit=>1, :descending=> true)).first
+        end
+        
         private
         
         def not_found(response)

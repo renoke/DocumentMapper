@@ -132,20 +132,33 @@ describe "CouchrestAdapter" do
       end
     end
     
-    context "one" do
-      it "reads first document and return a Hash" do
-        it = @adapter.read_first
-        it.should be_kind_of(Hash)
-        it['test'].should == true
+    context "first" do
+      it "reads first document" do
+        @it = @adapter.read_first
+        @it.should be_kind_of(Hash)
+        @it['var'].should == 0
       end
       
       it "reads first document from view" do
-        it = @adapter.read_first('test/test')
-        it.should be_kind_of(Hash)
-        it['test'].should == true
+        @it = @adapter.read_first('test/test')
+        @it.should be_kind_of(Hash)
+        @it['var'].should == 0
       end
     end
     
+    context "last" do
+      it "reads last document" do
+        @it = @adapter.read_last
+        @it.should be_kind_of(Hash)
+        @it['var'].should == 8
+      end
+      
+      it "reads first document from view" do
+        @it = @adapter.read_last('test/test')
+        @it.should be_kind_of(Hash)
+        @it['var'].should == 8
+      end
+    end
 
   end
 end
