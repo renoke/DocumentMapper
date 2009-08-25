@@ -66,14 +66,18 @@ module DocumentMapper
           @collection.find(query,options).entries
         end
         
-        def read_first(query={})
-          options = optionfy(query.merge(:limit=>1, :sort=>'$natural 1'))
-          @collection.find(query, options).entries[0]
+        def read_first(*query)
+          criteria = query.extract_options!
+          field = query.shift || 'created_at'
+          options = {:limit=>1, :sort=>{"#{field}"=>1}}
+          @collection.find(criteria, options).entries[0]
         end
         
-        def read_last(query={})
-          options = optionfy(query.merge(:limit=>1, :sort=>{'_id'=>'-1'}))
-          @collection.find(query, options).entries[0]
+        def read_last(*query)
+          criteria = query.extract_options!
+          field = query.shift || 'created_at'
+          options = {:limit=>1, :sort=>{"#{field}"=>-1}}
+          @collection.find(criteria, options).entries[0]
         end
         
         def read_ids(*ids)

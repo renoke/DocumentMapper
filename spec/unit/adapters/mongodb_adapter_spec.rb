@@ -18,7 +18,7 @@ describe "MongodbAdapter" do
   describe "Read" do
     before(:all) do
       9.times do |i|
-        @adapter.create({'_id'=>"id#{i}","foo"=>i, "bar"=> i*10, "test"=>true})
+        @adapter.create({"foo"=>i, "bar"=> i*10, "test"=>true})
       end
     end
     
@@ -31,7 +31,7 @@ describe "MongodbAdapter" do
       it "return document like a Hash" do
         it = @adapter.read_all.entries 
         it.first.should be_a(Hash)
-        it.first['_id'].should  == 'id0'
+        it.first['foo'].should  == 0
       end
 
       it "reads with query on keys" do
@@ -97,9 +97,10 @@ describe "MongodbAdapter" do
     end
     
     context "ids" do
-      
       it "reads by one or more id" do
-        @adapter.read_ids('id1','id2').size.should == 2
+        doc1 = @adapter.create(:foo=>'bar')
+        doc2 = @adapter.create(:bar=>'foo')
+        @adapter.read_ids(doc1,doc2).size.should == 2
       end
       
     end
@@ -108,8 +109,7 @@ describe "MongodbAdapter" do
       
       it "reads first document found" do
         @it = @adapter.read_first
-        @it['_id'].should == 'id0'
-        @it['test'].should be_true
+        @it['foo'].should == 0
       end
       
       it "is a Hash" do
@@ -117,14 +117,21 @@ describe "MongodbAdapter" do
         @it.should be_a(Hash)
       end
       
+      it "reads first document with criteria" do
+        @it = @adapter.read_first('foo', :foo=>{"$gte"=>5})['foo'].should == 5
+      end
+      
     end
     
     context "last" do
       
       it "reads last document found" do
-        @adapter.create({:last_document=>'true'})
-        @it = @adapter.read_last
-        @it['last_document'].should == 'true'
+        @it = @adapter.read_last('foo')
+        @it['foo'].should == 8
+      end
+      
+      it "reads last document with condition" do
+        @it = @adapter.read_last('foo',:foo=>{"$lte"=>4})['foo'].should == 4
       end
     end
     
