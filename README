@@ -1,0 +1,95 @@
+= DocumentMapper
+
+Simple mapper to document oriented databases. Two adapters has been implemented unil now :
+
+*couchdb (using couchrest gem)
+*mongodb (using mongodb-mongo gem)
+
+More adapters will come in a future.
+
+
+== Config
+
+#couchdb
+DocumentMapper.setup(:adapter => 'couchrest', :database=>"http://127.0.0.1:5984/my_db")
+
+#mondodb
+DocumentMapper.setup(:adapter => 'mongodb', :database=>"my_db")
+
+
+== Mash
+
+#model creation
+class Customer < DocumentMapper::Base
+end
+
+customer = Customer.new(:last_name = 'Duck', :first_name=> 'Donald')
+customer.phone = {:mobile=> 123456, :home=> 654321}
+customer.email = ['donald@disney.com', 'kwack@gmail.com']
+cusomer.save
+
+result = Customer.first
+result.last_name
+result
+
+DocumentMapper is a Mash (http://github.com/mbleigh/mash/tree/master), which his a special kind of Hash where you access and attributes with dot notation instead of bracket notation. 
+
+That means you don't to specify key, attribute or schema. No migration. Nothing. Just use the attribute you need, when you need, where you need.
+
+
+== CRUD
+
+You have the usual methods for create, read, update and delete objects. The arguments may depend the database used.
+
+#some class methods
+Customer.create(:last_name=>'Woodywood', :first_name=>'Pecker')
+Customer.get(id)
+Customer.all(:location=>'in the wild')  #mongodb
+Customer.first('couchdb/view', :key=>['value1','value2']) #couchdb
+
+#some instance methods
+customer.save
+customer.destroy
+
+
+== Validation
+
+DocumentMapper implements Jay Field's validatable library (validatable.rubyforge.org).
+
+class Ocean < DocumentMapper::Base
+  validates_acceptance_of :water
+  validates_numericality_of :temperature
+end
+
+class Script < DocumentMapper::Base
+  validates_format_of :language, :with => /P(erl|ython)/ 
+end
+
+class User < DocumentMapper::Base
+  validates_length_of :password, :maximum => 10
+  validates_confirmation_of :password
+end
+
+class Life < DocumentMapper::Base
+  validates_presence_of :god
+end
+
+
+== Aggregation
+
+A document can aggregate other document. It's like a parent document stores one or more child documents. It's different from Association (not yet implemented) where the associate document is stored in a different database.
+
+class Command < DocumentMapper::Base
+  aggregate n, :products
+end
+
+class Product < DocumentMapper::Base
+  def total
+    quantity * prixe
+  end
+end
+
+command = Command.new
+command.products << (:name=> 'awesome', :price=>10, :quantity=>1)
+
+

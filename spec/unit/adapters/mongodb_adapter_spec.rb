@@ -3,7 +3,7 @@ require File.dirname(__FILE__) + '/../../spec_helper'
 describe "MongodbAdapter" do
   
   before(:all) do
-    DocumentMapper.setup(:adapter => 'mongodb', :database=>"test", :collection=>'test_collection')
+    DocumentMapper.setup(:adapter => 'mongodb', :database=>"test")
     @adapter = DocumentMapper.repository
   end
   
