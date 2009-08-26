@@ -15,8 +15,6 @@ module DocumentMapper
       
       attr_reader :collection
       
-      FINDER_OPTIONS = {:less => '$lt', :less_or_equal =>'$lte'}
-      
       def initialize(options={})
         @database       = options[:database]
         collection      = options[:collection]

@@ -4,11 +4,17 @@ rescue
   puts 'You need couchrest gem to use CouchDB DocumentMapper'
 end
 
+
+
+
 module DocumentMapper
   
   module Adapters
     
     class CouchrestAdapter
+      
+      attr_reader :database
+      
       def initialize(options={})
         @database = options[:database]
         @db=CouchRest.database!(@database)
@@ -52,21 +58,6 @@ module DocumentMapper
       
       module Read
         
-        
-        def has_view?(name)
-          # name has form 'mydesign/myview'
-          # so it must have '/' character
-          if name =~ /\// 
-            splited = name.split('/')
-            design  = splited.shift  
-            view    = splited.join('/')
-            get("_design/#{design}")['views'].has_key?(view) rescue raise RuntimeError.new("no view #{design}/#{view} found")
-          else
-            nil
-          end
-        end
-        
-        
         def read_all(*args)
           query = args.extract_options!
           query.flatten_options!
@@ -103,6 +94,19 @@ module DocumentMapper
         end
         
         private
+        
+        def has_view?(name)
+          # name has form 'mydesign/myview'
+          # so it must have '/' character
+          if name =~ /\// 
+            splited = name.split('/')
+            design  = splited.shift  
+            view    = splited.join('/')
+            get("_design/#{design}")['views'].has_key?(view) rescue raise RuntimeError.new("no view #{design}/#{view} found")
+          else
+            nil
+          end
+        end
         
         def not_found(response)
           response['rows'].first.nil? || response['rows'].first.has_key?('error')

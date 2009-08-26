@@ -41,14 +41,6 @@ describe "CouchrestAdapter" do
     
     context "view" do
     
-      it "check if a specified view exist" do
-        @adapter.has_view?('test/test').should be_true
-      end
-    
-      it "reads nil if no view found" do
-        @adapter.has_view?('i-am-not-here').should be_nil
-      end
-    
       it "reads view" do
         @adapter.read_all('test/test').size.should == 9
         @adapter.read_all('test/test', :startkey=>'id0', :endkey=>'id3').size.should == 4
