@@ -93,3 +93,7 @@ command = Command.new
 command.products << (:name=> 'awesome', :price=>10, :quantity=>1)
 
 
+== Copyright
+
+Copyright (c) 2009 Renaud Kern (renoke). See LICENSE for details.
+
