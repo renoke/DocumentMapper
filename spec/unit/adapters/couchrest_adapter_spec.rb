@@ -12,12 +12,8 @@ describe "CouchrestAdapter" do
   end
   
   context "Minimal" do
-    
     it_should_behave_like "a DocumentMapper Adapter"
-    
   end
-  
-  
   
   context "Read" do
     

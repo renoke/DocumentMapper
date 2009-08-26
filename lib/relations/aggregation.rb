@@ -34,10 +34,16 @@ module DocumentMapper
             self[relation.name] = array
             array
           end
+          
+          def n
+            1.0/0
+          end
+          
         end
       end
   
       module InstanceMethods
+        
         
       end
   

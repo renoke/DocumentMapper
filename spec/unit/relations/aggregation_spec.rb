@@ -6,7 +6,7 @@ class Telephon < DocumentMapper::Base; end
 
 class Person < DocumentMapper::Base
   aggregate 1, :adress
-  aggregate :n, :telephons
+  aggregate n, :telephons
 end
 
 

@@ -43,8 +43,7 @@ describe DocumentMapper::Crud do
     end
     
     it "reads with descending options" do
-      pending("wait for sorting")
-      #Bill.all(:descending=>true).first['value']['number'].should == 8
+      Bill.all(:descending=>true).first['number'].should == 8
     end
     
   end

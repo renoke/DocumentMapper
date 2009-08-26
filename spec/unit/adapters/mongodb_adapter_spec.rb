@@ -11,11 +11,12 @@ describe "MongodbAdapter" do
     @adapter.clear
   end
   
-  describe "Minimal" do
+  context "Minimal" do
     it_should_behave_like "a DocumentMapper Adapter"
   end
   
-  describe "Read" do
+  context "Read" do
+    
     before(:all) do
       9.times do |i|
         @adapter.create({"foo"=>i, "bar"=> i*10, "test"=>true})

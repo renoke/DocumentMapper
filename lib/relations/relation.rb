@@ -39,6 +39,8 @@ module DocumentMapper
           @min, @max  = cardinality.min, cardinality.max
         when :n
           @min, @max  = 0, n
+        when n
+          @min, @max = 0, n
         end
       end
       
