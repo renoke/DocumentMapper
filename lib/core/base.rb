@@ -12,6 +12,10 @@ module DocumentMapper
       self['_id']
     end
     
+    def n
+      1.0/0
+    end
+    
     class << self; alias [] new; end  
     
     alias_method :regular_reader, :[]
