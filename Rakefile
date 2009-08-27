@@ -76,13 +76,14 @@ begin
     gemspec.email       = "renaud.kern@gmail.com"
     gemspec.homepage    = "http://github.com/renoke/DocumentMapper/"
     gemspec.authors     = ["Renaud Kern (renoke)"]
+    gemspec.files       << 'lib/documentmapper.rb'
 
     gemspec.has_rdoc    = false
     gemspec.add_dependency('couchrest', '>=0.32')
     gemspec.add_dependency('mongodb-mongo', '>=0.6.5')
     gemspec.add_dependency('activesupport')
   end
-  Jeweler::RubyforgeTasks.new
+
 rescue LoadError
   puts "Jeweler not available. Install it with: sudo gem install technicalpickles-jeweler -s http://gems.github.com"
 end
