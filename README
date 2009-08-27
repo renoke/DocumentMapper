@@ -9,11 +9,12 @@ More adapters will come in a future.
 
 
 == Config
+require 'documentmapper'
 
-#couchdb
+#couchdb adapter
 DocumentMapper.setup(:adapter => 'couchrest', :database=>"http://127.0.0.1:5984/my_db")
 
-#mondodb
+#mondodb adapter
 DocumentMapper.setup(:adapter => 'mongodb', :database=>"my_db")
 
 
@@ -23,14 +24,14 @@ DocumentMapper.setup(:adapter => 'mongodb', :database=>"my_db")
 class Customer < DocumentMapper::Base
 end
 
-customer = Customer.new(:last_name = 'Duck', :first_name=> 'Donald')
+customer = Customer.new(:last_name => 'Duck', :first_name=> 'Donald')
 customer.phone = {:mobile=> 123456, :home=> 654321}
 customer.email = ['donald@disney.com', 'kwack@gmail.com']
-cusomer.save
+customer.save
 
 result = Customer.first
-result.last_name
-result
+result.phone[:office => '848789']
+result.save
 
 DocumentMapper is a Mash (http://github.com/mbleigh/mash/tree/master), which his a special kind of Hash where you access and attributes with dot notation instead of bracket notation. 
 
@@ -42,7 +43,7 @@ That means you don't to specify key, attribute or schema. No migration. Nothing.
 You have the usual methods for create, read, update and delete objects. The arguments may depend the database used.
 
 #some class methods
-Customer.create(:last_name=>'Woodywood', :first_name=>'Pecker')
+id = Customer.create(:last_name=>'Woodywood', :first_name=>'Pecker')
 Customer.get(id)
 Customer.all(:location=>'in the wild')  #mongodb
 Customer.first('couchdb/view', :key=>['value1','value2']) #couchdb

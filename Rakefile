@@ -1,5 +1,5 @@
 require 'rake'
-require 'documentmapper.rb'
+require 'lib/documentmapper.rb'
 
 task :default => ['spec:all']
 
