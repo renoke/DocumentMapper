@@ -1,11 +1,11 @@
 require 'rake'
-require 'spec/rake/spectask'
-require 'document_mapper.rb'
+require 'documentmapper.rb'
 
 task :default => ['spec:all']
 
 namespace "spec" do
-
+begin
+  require 'spec/rake/spectask'
   desc "run adapters spec"
   Spec::Rake::SpecTask.new("adapters") do |t|
     t.spec_files = FileList['spec/unit/adapters/*']
@@ -28,7 +28,11 @@ namespace "spec" do
   
   desc "run all spec"
   task :all => [:adapters, :validatable, :core, :integration]
-  
+rescue LoadError
+  task :error do
+    abort "Rspec is not available"
+  end  
+end
 end
 
 namespace "rcov" do
@@ -63,6 +67,24 @@ task :flay do
   sh 'flay lib/**/*.rb'
 end
 
+begin
+  require 'jeweler'
+  Jeweler::Tasks.new do |gemspec|
+    gemspec.name        = "documentmapper"
+    gemspec.rubyforge_project = 'documentmapper'
+    gemspec.summary     = "a mapper for document oriented database"
+    gemspec.email       = "renaud.kern@gmail.com"
+    gemspec.homepage    = "http://github.com/renoke/DocumentMapper/"
+    gemspec.authors     = ["Renaud Kern (renoke)"]
 
+    gemspec.has_rdoc    = false
+    gemspec.add_dependency('couchrest', '>=0.32')
+    gemspec.add_dependency('mongodb-mongo', '>=0.6.5')
+    gemspec.add_dependency('activesupport')
+  end
+  Jeweler::RubyforgeTasks.new
+rescue LoadError
+  puts "Jeweler not available. Install it with: sudo gem install technicalpickles-jeweler -s http://gems.github.com"
+end
 
 

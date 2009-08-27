@@ -2,7 +2,7 @@ $TESTING=true
 
 require "rubygems"
 require "spec"
-require File.dirname(__FILE__)+ "/../document_mapper"
+require File.dirname(__FILE__)+ "/../documentmapper"
 require File.dirname(__FILE__)+ "/../lib/adapters/adapter"
 
 require File.dirname(__FILE__)+ "/models"
