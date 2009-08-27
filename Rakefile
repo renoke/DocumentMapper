@@ -71,7 +71,6 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gemspec|
     gemspec.name        = "documentmapper"
-    gemspec.rubyforge_project = 'documentmapper'
     gemspec.summary     = "a mapper for document oriented database"
     gemspec.email       = "renaud.kern@gmail.com"
     gemspec.homepage    = "http://github.com/renoke/DocumentMapper/"
